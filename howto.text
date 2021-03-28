@@ -1,0 +1,66 @@
+mutation{
+  createProject(createProject:{name:"graphql 001", description:"just demo 001"}){
+    projectId,
+    name,
+    description
+  }
+}
+
+
+query {
+  
+    project(projectId: "2fd00263-30db-442f-955d-63d8aad61742"){
+      projectId,
+      name,
+      description
+    }
+  
+  
+}
+
+mutation{
+  updateProject(updateProject:{
+    projectId:"2da1b336-9385-4115-b397-1b61b21c128c",name:"graphql 001 updated"
+  }){
+    projectId,
+    name,
+    description
+  }
+}
+
+mutation{
+  deleteProject(deleteProject:{
+    projectId:"e2ed279e-843b-4b03-86f4-bc7eeb4dcc6e"
+  }){
+    name
+  }
+}
+
+
+query{
+  projects(projectIds:["d831402d-9f04-43c0-996e-d9fd963ce076","234956e6-be40-436f-8b6b-190dfbcfcf0e"]){
+    projectId,
+    name,
+    description
+    
+  }
+}
+
+/* with variable */
+query SomeName($episode: String = "c5fcaacf-0c87-4428-9150-60b7544a804d"){
+  projects(projectIds:[$episode,"234956e6-be40-436f-8b6b-190dfbcfcf0e"]){
+    projectId,
+    name,
+    description
+    
+  }
+}
+
+query SomeName($episode: String = "c5fcaacf-0c87-4428-9150-60b7544a804d"){
+  projects(projectIds:[$episode,"234956e6-be40-436f-8b6b-190dfbcfcf0e"]){
+    projectId,
+    name @include(if: true),  /* awesome hide or show*/
+    description 
+    
+  }
+}
