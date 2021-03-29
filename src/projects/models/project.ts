@@ -23,7 +23,10 @@ export class Project {
 
     @Field(()=>[Assignee], {nullable: 'items' })
     @IsOptional()
-    assignees?:Assignee[];
+    assignees?:Assignee[]; // the assignees deliveres to user
+
+
+    assignees_rel?:string[];  // needed to save the relationship data between project and assignee
 
 
 }
