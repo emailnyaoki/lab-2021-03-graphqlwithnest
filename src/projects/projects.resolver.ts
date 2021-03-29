@@ -63,10 +63,10 @@ export class ProjectsResolver{
     }
 
   
-    @Query(()=>[Assignee], {name:'allassignees', nullable:'items'})   // give a name for this query for API consumer
+   /*  @Query(()=>[Assignee], {name:'allassignees', nullable:'items'})   // give a name for this query for API consumer
     getAllAssignees():Assignee[] {
         return this.assigneesService.getAllAssignees()
-    }
+    } */
 
     @ResolveField(()=>[Assignee],{name:'assignees', nullable:'items'}) 
     getAsignees(
@@ -74,11 +74,9 @@ export class ProjectsResolver{
         @Args('first', { nullable: true}) first?: number ):Assignee[]{
         
         if (first){
-            if (project.assignees){
-                return project.assignees.slice(0,first)
-            }
+            return this.projectsService.getAssignees(project.assignees_rel).slice(0,first)
         }
-        return project.assignees || []
+        return this.projectsService.getAssignees(project.assignees_rel)
     } 
 
     /*********************************************************************************/

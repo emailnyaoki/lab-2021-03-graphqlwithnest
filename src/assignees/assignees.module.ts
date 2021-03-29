@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
+import { AssigneesResolver } from './assignees.resolver';
 //import { ProjectsResolver } from './projects.resolver';
 import { AssigneesService } from './assignees.service';
 
@@ -8,7 +9,7 @@ import { AssigneesService } from './assignees.service';
   imports: [
   ],
   controllers: [],
-  providers: [AssigneesService],
+  providers: [AssigneesResolver,  AssigneesService],
   exports: [AssigneesService] // so it can be imported by projectmodule or another
 })
 

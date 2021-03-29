@@ -77,6 +77,21 @@ export class ProjectsService {
 
     }
 
+    public getAssignees(assigneeIds:string[]):Assignee[] {
+        
+        if (assigneeIds)
+        return assigneeIds.map(assigneeId=>{
+            const args = new GetAssigneeArgs()
+            args.assigneeId = assigneeId
+            const assignee = this.assigneesService.getAssignee(args)
+            return assignee
+        })
+
+        return []
+
+    }
+
+
 
     public assigneeToProject(assigneeToProjectInput: AssigneeToProjectInput):Assignee {
         
@@ -89,17 +104,26 @@ export class ProjectsService {
 
         const project = this.getProject(argsPro)
 
+        if (project.assignees_rel){
+            const foundproject = project.assignees_rel.includes(assigneeToProjectInput.assigneeId)
+            if (!foundproject)
+                project.assignees_rel.push(assigneeToProjectInput.assigneeId)
+        }else{
+            project.assignees_rel = [assigneeToProjectInput.assigneeId]
+            
+        }
 
-        if (project.assignees){
+
+        /* if (project.assignees){
             const foundproject = project.assignees.find(a=>a.assigneeId===assigneeToProjectInput.assigneeId)
             if (!foundproject)
-                project.assignees.push(assignee)
+                project.assignees.push(assignee.)
         }else{
             project.assignees = [assignee]
             
         }
-
-        console.log(project.assignees)
+ */
+        //console.log(project.assignees)
 
         return assignee
 
